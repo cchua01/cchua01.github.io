@@ -1,51 +1,100 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chihui's Portfolio</title>
-    <link rel="stylesheet" href="/assets/css/styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Portfolio</title>
+  <style>
+    body,
+    html {
+      margin: 0;
+      overflow: hidden;
+      height: 100%;
+      font-family: Arial, sans-serif;
+    }
+
+    #menu {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      background: rgba(0, 0, 0, 0.7);
+      color: white;
+      padding: 10px;
+      border-radius: 5px;
+    }
+
+    #menu a {
+      color: white;
+      text-decoration: none;
+      margin-right: 15px;
+    }
+  </style>
 </head>
+
 <body>
-    <div id="3d-background"></div> <!-- Container for the 3D scene -->
+  <div id="menu">
+    <a href="#about">About Me</a>
+    <a href="#gallery">Gallery</a>
+    <a href="#blog">Blog</a>
+    <a href="#projects">Projects</a>
+  </div>
 
-    <nav class="navbar">
-        <ul>
-            <li><a href="#description">Personal Description</a></li>
-            <li><a href="#blog">Blog</a></li>
-            <li><a href="#gallery">Gallery</a></li>
-            <li><a href="#projects">Projects</a></li>
-            <li><a href="#contact">Contact Me</a></li>
-        </ul>
-    </nav>
-
-    <section id="description" class="section">
-        <h1>Personal Description</h1>
-        <p>Your description goes here.</p>
-    </section>
-
-    <section id="blog" class="section">
-        <h1>Blog</h1>
-        <p>Blog content goes here.</p>
-    </section>
-
-    <section id="gallery" class="section">
-        <h1>Gallery</h1>
-        <p>Gallery content goes here.</p>
-    </section>
-
-    <section id="projects" class="section">
-        <h1>Projects</h1>
-        <p>Project details go here.</p>
-    </section>
-
-    <section id="contact" class="section">
-        <h1>Contact Me</h1>
-        <p>Contact information goes here.</p>
-    </section>
-
-    <script src="https://unpkg.com/three@0.127.0/build/three.module.js"></script>
-    <script src="https://unpkg.com/three@0.127.0/examples/jsm/controls/OrbitControls.js"></script>
-    <!-- script src="3d.js"></script> Link to your Three.js script -->
+  <!-- Three.js will append the canvas here -->
+  <script type="module">
+    import * as THREE from 'https://unpkg.com/three@0.127.0/build/three.module.js';
+    import {
+      OrbitControls
+    } from 'https://unpkg.com/three@0.127.0/examples/jsm/controls/OrbitControls.js';
+    // Scene setup
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 2000);
+    const renderer = new THREE.WebGLRenderer();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    document.body.appendChild(renderer.domElement);
+    // Camera controls
+    const controls = new OrbitControls(camera, renderer.domElement);
+    camera.position.set(0, 0, 10);
+    controls.update();
+    // Milky Way Background
+    const textureLoader = new THREE.TextureLoader();
+    const milkyWayTexture = textureLoader.load('https://www.eso.org/public/archives/images/publicationjpg/eso0932a.jpg');
+    const milkyWayGeometry = new THREE.SphereGeometry(1000, 64, 64);
+    const milkyWayMaterial = new THREE.MeshBasicMaterial({
+      map: milkyWayTexture,
+      side: THREE.BackSide
+    });
+    const milkyWay = new THREE.Mesh(milkyWayGeometry, milkyWayMaterial);
+    scene.add(milkyWay);
+    // Stars
+    const starsGeometry = new THREE.BufferGeometry();
+    const starCount = 10000;
+    const positions = new Float32Array(starCount * 3);
+    for (let i = 0; i < starCount; i++) {
+      positions[i * 3 + 0] = THREE.MathUtils.randFloatSpread(2000); // x
+      positions[i * 3 + 1] = THREE.MathUtils.randFloatSpread(2000); // y
+      positions[i * 3 + 2] = THREE.MathUtils.randFloatSpread(2000); // z
+    }
+    starsGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+    const starsMaterial = new THREE.PointsMaterial({
+      color: 0x888888,
+      size: 0.7
+    });
+    const stars = new THREE.Points(starsGeometry, starsMaterial);
+    scene.add(stars);
+    // Animation loop
+    function animate() {
+      requestAnimationFrame(animate);
+      controls.update();
+      renderer.render(scene, camera);
+    }
+    animate();
+    // Handle window resize
+    window.addEventListener('resize', () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+  </script>
 </body>
 </html>
