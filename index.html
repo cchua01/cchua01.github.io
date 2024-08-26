@@ -1,16 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>My Portfolio</title>
   <style>
-    body, html {
+    body,
+    html {
       margin: 0;
       overflow: hidden;
       height: 100%;
       font-family: Arial, sans-serif;
     }
+
     #menu {
       position: absolute;
       top: 20px;
@@ -19,21 +22,16 @@
       color: white;
       padding: 10px;
       border-radius: 5px;
-      z-index: 10;
     }
+
     #menu a {
       color: white;
       text-decoration: none;
       margin-right: 15px;
     }
-    #about, #gallery, #blog, #projects {
-      padding: 100px;
-      background: rgba(0, 0, 0, 0.5);
-      color: white;
-      margin-top: 50px;
-    }
   </style>
 </head>
+
 <body>
   <div id="menu">
     <a href="#about">About Me</a>
@@ -42,26 +40,61 @@
     <a href="#projects">Projects</a>
   </div>
 
-  <div id="about">
-    <h1>About Me</h1>
-    <p>Information about yourself.</p>
-  </div>
-
-  <div id="gallery">
-    <h1>Gallery</h1>
-    <p>Your gallery images.</p>
-  </div>
-
-  <div id="blog">
-    <h1>Blog</h1>
-    <p>Your blog posts.</p>
-  </div>
-
-  <div id="projects">
-    <h1>Projects</h1>
-    <p>Your projects.</p>
-  </div>
-
-  <script type="module" src="script.js"></script>
+  <!-- Three.js will append the canvas here -->
+  <script type="module">
+    import * as THREE from 'https://unpkg.com/three@0.127.0/build/three.module.js';
+    import {
+      OrbitControls
+    } from 'https://unpkg.com/three@0.127.0/examples/jsm/controls/OrbitControls.js';
+    // Scene setup
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 2000);
+    const renderer = new THREE.WebGLRenderer();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    document.body.appendChild(renderer.domElement);
+    // Camera controls
+    const controls = new OrbitControls(camera, renderer.domElement);
+    camera.position.set(0, 0, 10);
+    controls.update();
+    // Milky Way Background
+    const textureLoader = new THREE.TextureLoader();
+    const milkyWayTexture = textureLoader.load('/assets/img/Magellanic Cloud.jpg');
+    const milkyWayGeometry = new THREE.SphereGeometry(1000, 64, 64);
+    const milkyWayMaterial = new THREE.MeshBasicMaterial({
+      map: milkyWayTexture,
+      side: THREE.BackSide
+    });
+    const milkyWay = new THREE.Mesh(milkyWayGeometry, milkyWayMaterial);
+    scene.add(milkyWay);
+    // Stars
+    const starsGeometry = new THREE.BufferGeometry();
+    const starCount = 10000;
+    const positions = new Float32Array(starCount * 3);
+    for (let i = 0; i < starCount; i++) {
+      positions[i * 3 + 0] = THREE.MathUtils.randFloatSpread(2000); // x
+      positions[i * 3 + 1] = THREE.MathUtils.randFloatSpread(2000); // y
+      positions[i * 3 + 2] = THREE.MathUtils.randFloatSpread(2000); // z
+    }
+    starsGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+    const starsMaterial = new THREE.PointsMaterial({
+      color: 0x888888,
+      size: 0.7
+    });
+    const stars = new THREE.Points(starsGeometry, starsMaterial);
+    scene.add(stars);
+    // Animation loop
+    function animate() {
+      requestAnimationFrame(animate);
+      controls.update();
+      renderer.render(scene, camera);
+    }
+    animate();
+    // Handle window resize
+    window.addEventListener('resize', () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+  </script>
 </body>
 </html>
