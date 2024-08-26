@@ -1,9 +1,51 @@
 <!DOCTYPE html>
+<html lang="en">
 <head>
-    <title>cchua01.github.io</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chihui's Portfolio</title>
+    <link rel="stylesheet" href="/assets/css/styles.css">
 </head>
 <body>
-    <h1>Hello World</h1>
-    <p>I'm hosted with Github Pages.</p>
+    <div id="3d-background"></div> <!-- Container for the 3D scene -->
+
+    <nav class="navbar">
+        <ul>
+            <li><a href="#description">Personal Description</a></li>
+            <li><a href="#blog">Blog</a></li>
+            <li><a href="#gallery">Gallery</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#contact">Contact Me</a></li>
+        </ul>
+    </nav>
+
+    <section id="description" class="section">
+        <h1>Personal Description</h1>
+        <p>Your description goes here.</p>
+    </section>
+
+    <section id="blog" class="section">
+        <h1>Blog</h1>
+        <p>Blog content goes here.</p>
+    </section>
+
+    <section id="gallery" class="section">
+        <h1>Gallery</h1>
+        <p>Gallery content goes here.</p>
+    </section>
+
+    <section id="projects" class="section">
+        <h1>Projects</h1>
+        <p>Project details go here.</p>
+    </section>
+
+    <section id="contact" class="section">
+        <h1>Contact Me</h1>
+        <p>Contact information goes here.</p>
+    </section>
+
+    <script src="https://unpkg.com/three@0.127.0/build/three.module.js"></script>
+    <script src="https://unpkg.com/three@0.127.0/examples/jsm/controls/OrbitControls.js"></script>
+    <script src="3d.js"></script> <!-- Link to your Three.js script -->
 </body>
 </html>
