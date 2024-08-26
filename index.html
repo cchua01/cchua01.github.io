@@ -12,24 +12,30 @@
       overflow: hidden;
       height: 100%;
       font-family: Arial, sans-serif;
+      background-color: transparent; /* Make the background color transparent */
     }
-
+  
     #menu {
       position: absolute;
       top: 20px;
       left: 20px;
-      background: rgba(0, 0, 0, 0.7);
+      background: rgba(0, 0, 0, 0.3); /* Set a lower opacity for the menu background */
       color: white;
       padding: 10px;
       border-radius: 5px;
     }
-
+  
     #menu a {
-      color: white;
+      color: rgba(255, 255, 255, 0.8); /* Make the text color slightly transparent */
       text-decoration: none;
       margin-right: 15px;
     }
+  
+    #menu a:hover {
+      color: rgba(255, 255, 255, 1); /* Make text fully visible on hover */
+    }
   </style>
+  
 </head>
 
 <body>
