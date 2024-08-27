@@ -9,10 +9,11 @@
     body,
     html {
       margin: 0;
-      overflow-x: hidden;
       height: 100%;
       font-family: Arial, sans-serif;
       background-color: transparent; /* Make the background color transparent */
+      overflow-x: hidden;
+      overflow-y: auto; /* Enable vertical scrolling */
     }
 
     #menu {
@@ -53,10 +54,10 @@
 
 <body>
   <div id="menu">
-    <a onclick="showSection('about')">About Me</a>
-    <a onclick="showSection('gallery')">Gallery</a>
-    <a onclick="showSection('blog')">Blog</a>
-    <a onclick="showSection('projects')">Projects</a>
+    <a onclick="navigateToSection('about')">About Me</a>
+    <a onclick="navigateToSection('gallery')">Gallery</a>
+    <a onclick="navigateToSection('blog')">Blog</a>
+    <a onclick="navigateToSection('projects')">Projects</a>
   </div>
 
   <section id="about">
@@ -264,13 +265,23 @@
       renderer.setSize(window.innerWidth, window.innerHeight);
     });
 
-    // Show specific section and hide others
-    function showSection(sectionId) {
-      document.querySelectorAll('section').forEach(section => {
-        section.style.display = 'none';
-      });
-      document.getElementById(sectionId).style.display = 'block';
+    // Navigate to specific section and refresh the page
+    function navigateToSection(sectionId) {
+      localStorage.setItem('sectionToShow', sectionId);
+      location.reload();
     }
+
+    // Show the section after the page refreshes
+    function showSection() {
+      const sectionToShow = localStorage.getItem('sectionToShow');
+      if (sectionToShow) {
+        document.getElementById(sectionToShow).style.display = 'block';
+        localStorage.removeItem('sectionToShow');
+      }
+    }
+
+    // Show the selected section on page load
+    showSection();
   </script>
 </body>
 </html>
