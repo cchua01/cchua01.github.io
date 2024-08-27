@@ -37,6 +37,10 @@
     #menu a:hover {
       color: rgba(255, 255, 255, 1); /* Make text fully visible on hover */
     }
+
+    #audio-player {
+      display: none; /* Hide the audio player */
+    }
   </style>
 </head>
 
@@ -47,6 +51,12 @@
     <a href="#">Blog</a>
     <a href="#">Projects</a>
   </div>
+
+  <!-- Hidden HTML5 Audio Element -->
+  <audio id="audio-player" autoplay loop>
+    <source src="/assets/msc/blue_sky_binaural_beats copy.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
 
   <!-- Three.js will append the canvas here -->
   <script type="module">
@@ -234,4 +244,5 @@
     });
   </script>
 </body>
+
 </html>
