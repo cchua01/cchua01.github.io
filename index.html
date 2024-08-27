@@ -53,7 +53,7 @@
   </div>
 
   <!-- Hidden HTML5 Audio Element -->
-  <audio id="audio-player" autoplay loop>
+  <audio id="audio-player" loop>
     <source src="/assets/msc/blue_sky_binaural_beats copy.mp3" type="audio/mpeg">
     Your browser does not support the audio element.
   </audio>
@@ -87,10 +87,21 @@
       v.z = THREE.MathUtils.clamp(v.z, -limitPanRange, limitPanRange);
     };
 
-    controls.addEventListener('change', () => {
-      controls.target.clamp(controls.target);
-      camera.position.clamp(controls.target.clone().add(new THREE.Vector3(-limitPanRange, -limitPanRange, -limitPanRange)),
-                            controls.target.clone().add(new THREE.Vector3(limitPanRange, limitPanRange, limitPanRange)));
+    // Get the audio element
+    const audioPlayer = document.getElementById('audio-player');
+
+    // Play audio when the user interacts with the view (zoom or rotate)
+    controls.addEventListener('start', () => {
+      audioPlayer.play();
+    });
+
+    // Handle stopping the music when a menu item is clicked
+    const menuLinks = document.querySelectorAll('#menu a');
+    menuLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        audioPlayer.pause();
+        audioPlayer.currentTime = 0; // Reset to the beginning
+      });
     });
 
     controls.update();
