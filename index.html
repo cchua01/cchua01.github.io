@@ -95,21 +95,128 @@
     });
     const milkyWay = new THREE.Mesh(milkyWayGeometry, milkyWayMaterial);
     scene.add(milkyWay);
-    
+
+    // Create a realistic star texture with a halo using Canvas
+    function createStarTexture() {
+      const canvas = document.createElement('canvas');
+      canvas.width = 64;
+      canvas.height = 64;
+      const ctx = canvas.getContext('2d');
+
+      // Draw a circular gradient with a halo effect
+      const gradient = ctx.createRadialGradient(32, 32, 2, 32, 32, 32);
+      gradient.addColorStop(0, 'rgba(255, 255, 255, 1)'); // Bright center
+      gradient.addColorStop(0.2, 'rgba(255, 255, 255, 0.8)');
+      gradient.addColorStop(0.4, 'rgba(255, 200, 200, 0.4)');
+      gradient.addColorStop(0.6, 'rgba(150, 150, 255, 0.2)');
+      gradient.addColorStop(1, 'rgba(100, 100, 255, 0)'); // Very faint at the edges
+
+      ctx.beginPath();
+      ctx.arc(32, 32, 32, 0, Math.PI * 2);
+      ctx.fillStyle = gradient;
+      ctx.fill();
+
+      return new THREE.CanvasTexture(canvas);
+    }
+
+    const starTexture = createStarTexture();
+
+    // Function to get star color based on temperature type (using real RGB values)
+    function getStarColor(temperatureType) {
+      const colors = {
+        O: [155 / 255, 176 / 255, 255 / 255], // Blue
+        B: [170 / 255, 191 / 255, 255 / 255], // Blue-White
+        A: [202 / 255, 215 / 255, 255 / 255], // White
+        F: [248 / 255, 247 / 255, 255 / 255], // Yellow-White
+        G: [255 / 255, 244 / 255, 234 / 255], // Yellow
+        K: [255 / 255, 210 / 255, 161 / 255], // Orange
+        M: [255 / 255, 204 / 255, 111 / 255], // Red
+      };
+      return colors[temperatureType];
+    }
+
+    // Function to get star size based on temperature type, with a range from 0.1 to 2.5
+    function getStarSize(temperatureType) {
+      const sizes = {
+        O: THREE.MathUtils.randFloat(1.5, 2.5), // Very large
+        B: THREE.MathUtils.randFloat(1.3, 2.2), // Large
+        A: THREE.MathUtils.randFloat(1.0, 2.0), // Medium-large
+        F: THREE.MathUtils.randFloat(0.8, 1.5), // Medium
+        G: THREE.MathUtils.randFloat(0.6, 1.2), // Medium-small
+        K: THREE.MathUtils.randFloat(0.4, 1.0), // Small
+        M: THREE.MathUtils.randFloat(0.1, 0.5), // Very small
+      };
+      return sizes[temperatureType];
+    }
+
+    // Weighted random selection for star types
+    function weightedRandomStarType() {
+      const randomValue = Math.random();
+      if (randomValue < 0.03) return 'O'; // 3% O-type stars (blue, very rare)
+      if (randomValue < 0.13) return 'B'; // 10% B-type stars (blue-white)
+      if (randomValue < 0.25) return 'A'; // 12% A-type stars (white)
+      if (randomValue < 0.45) return 'F'; // 20% F-type stars (yellow-white)
+      if (randomValue < 0.7) return 'G'; // 25% G-type stars (yellow, like our Sun)
+      if (randomValue < 0.9) return 'K'; // 20% K-type stars (orange)
+      return 'M'; // 10% M-type stars (red, most common)
+    }
+
     // Stars
     const starsGeometry = new THREE.BufferGeometry();
-    const starCount = 10000;
+    const starCount = 50000;  // Increased star count for a denser field
     const positions = new Float32Array(starCount * 3);
+    const colors = new Float32Array(starCount * 3);
+    const sizes = new Float32Array(starCount);
+
     for (let i = 0; i < starCount; i++) {
-      positions[i * 3 + 0] = THREE.MathUtils.randFloatSpread(2000); // x
+      // Position
+      positions[i * 3] = THREE.MathUtils.randFloatSpread(2000); // x
       positions[i * 3 + 1] = THREE.MathUtils.randFloatSpread(2000); // y
       positions[i * 3 + 2] = THREE.MathUtils.randFloatSpread(2000); // z
+
+      // Color and size based on real star distribution
+      const starType = weightedRandomStarType();
+      const color = getStarColor(starType);
+      const size = getStarSize(starType);
+      
+      colors[i * 3] = color[0]; // red
+      colors[i * 3 + 1] = color[1]; // green
+      colors[i * 3 + 2] = color[2]; // blue
+
+      sizes[i] = size;
     }
+
     starsGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-    const starsMaterial = new THREE.PointsMaterial({
-      color: 0x888888,
-      size: 0.7
+    starsGeometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+    starsGeometry.setAttribute('size', new THREE.BufferAttribute(sizes, 1));
+
+    const starsMaterial = new THREE.ShaderMaterial({
+      uniforms: {
+        pointTexture: { value: starTexture }
+      },
+      vertexShader: `
+        attribute float size;
+        attribute vec3 color;
+        varying vec3 vColor;
+        void main() {
+          vColor = color;
+          vec4 mvPosition = modelViewMatrix * vec4(position, 1.0);
+          gl_PointSize = size * (300.0 / -mvPosition.z);
+          gl_Position = projectionMatrix * mvPosition;
+        }
+      `,
+      fragmentShader: `
+        uniform sampler2D pointTexture;
+        varying vec3 vColor;
+        void main() {
+          gl_FragColor = vec4(vColor, 1.0);
+          gl_FragColor = gl_FragColor * texture2D(pointTexture, gl_PointCoord);
+          if (gl_FragColor.a < 0.5) discard;
+        }
+      `,
+      transparent: true
     });
+
     const stars = new THREE.Points(starsGeometry, starsMaterial);
     scene.add(stars);
     
