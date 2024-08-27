@@ -38,47 +38,54 @@
       color: rgba(255, 255, 255, 1); /* Make text fully visible on hover */
     }
 
-    section {
-      display: none; /* All sections are initially hidden */
-      padding: 60px 20px;
-      min-height: 100vh;
-      background-color: rgba(0, 0, 0, 0.5); /* Transparent background */
+    #about-modal {
+      display: none; /* Initially hidden */
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 50%;
+      padding: 20px;
+      background-color: rgba(0, 0, 0, 0.8); /* Transparent background */
       color: white;
+      border-radius: 10px;
+      z-index: 2000;
+      text-align: center;
     }
 
-    h1 {
+    #about-modal h1 {
       margin-top: 0;
+    }
+
+    #about-modal .close-btn {
+      cursor: pointer;
+      color: rgba(255, 255, 255, 0.7);
+      position: absolute;
+      top: 10px;
+      right: 20px;
+      font-size: 24px;
+    }
+
+    #about-modal .close-btn:hover {
+      color: rgba(255, 255, 255, 1);
     }
   </style>
 </head>
 
 <body>
   <div id="menu">
-    <a onclick="navigateToSection('about')">About Me</a>
-    <a onclick="navigateToSection('gallery')">Gallery</a>
-    <a onclick="navigateToSection('blog')">Blog</a>
-    <a onclick="navigateToSection('projects')">Projects</a>
+    <a onclick="showAbout()">About Me</a>
+    <a href="#">Gallery</a>
+    <a href="#">Blog</a>
+    <a href="#">Projects</a>
   </div>
 
-  <section id="about">
+  <!-- About Me Modal -->
+  <div id="about-modal">
+    <span class="close-btn" onclick="closeAbout()">×</span>
     <h1>About Me</h1>
     <p>This is the about me section. Here you can introduce yourself and provide details about your background, interests, and skills.</p>
-  </section>
-
-  <section id="gallery">
-    <h1>Gallery</h1>
-    <p>This is the gallery section. Showcase your work, art, or photography here.</p>
-  </section>
-
-  <section id="blog">
-    <h1>Blog</h1>
-    <p>This is the blog section. Share your thoughts, ideas, and experiences in your blog posts.</p>
-  </section>
-
-  <section id="projects">
-    <h1>Projects</h1>
-    <p>This is the projects section. Display your projects and provide descriptions of each one.</p>
-  </section>
+  </div>
 
   <!-- Three.js will append the canvas here -->
   <script type="module">
@@ -265,23 +272,15 @@
       renderer.setSize(window.innerWidth, window.innerHeight);
     });
 
-    // Navigate to specific section and refresh the page
-    function navigateToSection(sectionId) {
-      localStorage.setItem('sectionToShow', sectionId);
-      location.reload();
+    // Show the About Me modal
+    function showAbout() {
+      document.getElementById('about-modal').style.display = 'block';
     }
 
-    // Show the section after the page refreshes
-    function showSection() {
-      const sectionToShow = localStorage.getItem('sectionToShow');
-      if (sectionToShow) {
-        document.getElementById(sectionToShow).style.display = 'block';
-        localStorage.removeItem('sectionToShow');
-      }
+    // Close the About Me modal
+    function closeAbout() {
+      document.getElementById('about-modal').style.display = 'none';
     }
-
-    // Show the selected section on page load
-    showSection();
   </script>
 </body>
 </html>
