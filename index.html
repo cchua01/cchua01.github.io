@@ -90,12 +90,19 @@
     // Get the audio element
     const audioPlayer = document.getElementById('audio-player');
 
-    // Play audio when the user interacts with the view (zoom or rotate)
-    controls.addEventListener('change', () => {
+    // Play audio when the user interacts with the view (zoom, rotate, or drag)
+    controls.addEventListener('start', () => {
       if (audioPlayer.paused) {
         audioPlayer.play();
       }
     });
+
+    // Play audio on any touch interaction (for mobile)
+    window.addEventListener('touchstart', () => {
+      if (audioPlayer.paused) {
+        audioPlayer.play();
+      }
+    }, { passive: true });
 
     // Handle stopping the music when a menu item is clicked
     const menuLinks = document.querySelectorAll('#menu a');
