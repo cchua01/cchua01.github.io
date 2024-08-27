@@ -87,7 +87,7 @@
     
     // Milky Way Background
     const textureLoader = new THREE.TextureLoader();
-    const milkyWayTexture = textureLoader.load('/assets/img/Magellanic Cloud.jpg');
+    const milkyWayTexture = textureLoader.load('https://www.eso.org/public/archives/images/publicationjpg/eso0932a.jpg');
     const milkyWayGeometry = new THREE.SphereGeometry(1000, 64, 64);
     const milkyWayMaterial = new THREE.MeshBasicMaterial({
       map: milkyWayTexture,
