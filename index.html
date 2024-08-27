@@ -66,10 +66,10 @@
     
     // Limit the zoom levels to keep the cloud within the camera's view
     controls.minDistance = 5;  // Minimum zoom level
-    controls.maxDistance = 50; // Maximum zoom level
+    controls.maxDistance = 150; // Maximum zoom level
 
     // Restrict the panning movement to prevent the camera from moving too far
-    const limitPanRange = 50;
+    const limitPanRange = 150;
     controls.maxPolarAngle = Math.PI / 2;  // Prevent going below ground
     controls.target.clamp = (v) => {
       v.x = THREE.MathUtils.clamp(v.x, -limitPanRange, limitPanRange);
