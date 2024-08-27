@@ -25,18 +25,72 @@
     p {
       line-height: 1.6;
     }
+
+    .social-media {
+      margin-top: 30px;
+    }
+
+    .social-media a {
+      margin-right: 20px;
+      text-decoration: none;
+      color: white;
+    }
+
+    .social-media a:hover {
+      color: #ddd; /* Slight color change on hover */
+    }
+
+    .social-media i {
+      font-size: 24px;
+      vertical-align: middle;
+    }
+
+    .back-button {
+      display: inline-block;
+      margin-top: 40px;
+      padding: 10px 20px;
+      background-color: #444;
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+      transition: background-color 0.3s;
+    }
+
+    .back-button:hover {
+      background-color: #666; /* Slightly lighter background on hover */
+    }
   </style>
+  <!-- Add Font Awesome for social media icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 
 <body>
   <h1>About Me</h1>
   <p>
-    This is the about me section. Here you can introduce yourself and provide details about your background, interests, and skills. 
-    You can include information such as your education, work experience, hobbies, and any other details you'd like to share.
+    Hi, I'm Chihui Chen.
   </p>
   <p>
     Additional paragraphs can be added to provide more context and depth about your personal and professional journey.
   </p>
+
+  <!-- Social Media Links -->
+  <div class="social-media">
+    <a href="https://www.instagram.com/yourusername" target="_blank">
+      <i class="fab fa-instagram"></i> Instagram
+    </a>
+    <a href="https://www.linkedin.com/in/yourusername" target="_blank">
+      <i class="fab fa-linkedin"></i> LinkedIn
+    </a>
+    <a href="https://github.com/yourusername" target="_blank">
+      <i class="fab fa-github"></i> GitHub
+    </a>
+    <a href="mailto:chihui.chen@stduent.unsw.edu.au">
+      <i class="fas fa-envelope"></i> Email
+    </a>
+  </div>
+
+  <!-- Back to Homepage Button -->
+  <a href="index.html" class="back-button">Back to Homepage</a>
 </body>
 
 </html>
