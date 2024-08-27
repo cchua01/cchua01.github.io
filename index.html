@@ -14,7 +14,7 @@
       font-family: Arial, sans-serif;
       background-color: transparent; /* Make the background color transparent */
     }
-  
+
     #menu {
       position: absolute;
       top: 20px;
@@ -24,18 +24,18 @@
       padding: 10px;
       border-radius: 5px;
     }
-  
+
     #menu a {
       color: rgba(255, 255, 255, 0.8); /* Make the text color slightly transparent */
       text-decoration: none;
       margin-right: 15px;
     }
-  
+
     #menu a:hover {
       color: rgba(255, 255, 255, 1); /* Make text fully visible on hover */
     }
   </style>
-  
+
 </head>
 
 <body>
@@ -52,16 +52,39 @@
     import {
       OrbitControls
     } from 'https://unpkg.com/three@0.127.0/examples/jsm/controls/OrbitControls.js';
+    
     // Scene setup
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 2000);
     const renderer = new THREE.WebGLRenderer();
     renderer.setSize(window.innerWidth, window.innerHeight);
     document.body.appendChild(renderer.domElement);
+    
     // Camera controls
     const controls = new OrbitControls(camera, renderer.domElement);
     camera.position.set(0, 0, 10);
+    
+    // Limit the zoom levels to keep the cloud within the camera's view
+    controls.minDistance = 5;  // Minimum zoom level
+    controls.maxDistance = 50; // Maximum zoom level
+
+    // Restrict the panning movement to prevent the camera from moving too far
+    const limitPanRange = 50;
+    controls.maxPolarAngle = Math.PI / 2;  // Prevent going below ground
+    controls.target.clamp = (v) => {
+      v.x = THREE.MathUtils.clamp(v.x, -limitPanRange, limitPanRange);
+      v.y = THREE.MathUtils.clamp(v.y, -limitPanRange, limitPanRange);
+      v.z = THREE.MathUtils.clamp(v.z, -limitPanRange, limitPanRange);
+    };
+
+    controls.addEventListener('change', () => {
+      controls.target.clamp(controls.target);
+      camera.position.clamp(controls.target.clone().add(new THREE.Vector3(-limitPanRange, -limitPanRange, -limitPanRange)),
+                            controls.target.clone().add(new THREE.Vector3(limitPanRange, limitPanRange, limitPanRange)));
+    });
+
     controls.update();
+    
     // Milky Way Background
     const textureLoader = new THREE.TextureLoader();
     const milkyWayTexture = textureLoader.load('/assets/img/Magellanic Cloud.jpg');
@@ -72,6 +95,7 @@
     });
     const milkyWay = new THREE.Mesh(milkyWayGeometry, milkyWayMaterial);
     scene.add(milkyWay);
+    
     // Stars
     const starsGeometry = new THREE.BufferGeometry();
     const starCount = 10000;
@@ -88,6 +112,7 @@
     });
     const stars = new THREE.Points(starsGeometry, starsMaterial);
     scene.add(stars);
+    
     // Animation loop
     function animate() {
       requestAnimationFrame(animate);
@@ -95,6 +120,7 @@
       renderer.render(scene, camera);
     }
     animate();
+    
     // Handle window resize
     window.addEventListener('resize', () => {
       camera.aspect = window.innerWidth / window.innerHeight;
