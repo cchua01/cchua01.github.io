@@ -21,7 +21,7 @@ function loadContent(page) {
                 <div class="about-container">
                     <!-- Avatar Section -->
                     <div class="avatar-section">
-                        <img src="path_to_your_avatar_image.jpg" alt="Avatar" class="avatar-image">
+                        <img src="${aboutMe.avatar}" alt="Avatar" class="avatar-image">
                     </div>
                     
                     <!-- Introduction Section -->
