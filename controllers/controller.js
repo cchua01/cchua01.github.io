@@ -57,6 +57,9 @@ function loadContent(page) {
                                     <i class="fab fa-${contact.name.toLowerCase()}"></i>
                                 </a>
                             `).join('')}
+                            <a href="mailto:chihui.chen@student.unsw.edu.au" class="social-link">
+                                <i class="fas fa-envelope"></i>
+                            </a>
                         </div>
                     </div>
                     
