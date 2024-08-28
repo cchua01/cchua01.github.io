@@ -79,7 +79,7 @@ function loadContent(page) {
 document.querySelectorAll('#menu a').forEach(link => {
     link.addEventListener('click', event => {
         event.preventDefault();
-        const page = event.target.getAttribute('href').replace('#', ''); // Correctly parse the href attribute
+        const page = event.target.textContent.trim().toLowerCase();//getAttribute('href').replace('#', ''); // Correctly parse the href attribute
         loadContent(page);
     });
 });
