@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="google-site-verification" content="rWxe-oFlDMwVrJe36BbzPPGq5xIPDZ6DhzvCl2AWzhw" />
-  <title>Chihui Chen</title>
+  <title>Chihui's Cyber Homeland</title>
   <style>
     body,
     html {
@@ -48,18 +48,37 @@
       text-align: center;
       z-index: 500;
       pointer-events: none; /* Prevent the content from blocking interactions with the 3D scene */
+      max-width: 80%;
     }
 
-    h1 {
+    h1, h2 {
       font-size: 3em;
       margin: 0;
       text-shadow: 0 0 10px rgba(0, 0, 0, 0.7); /* Add shadow for better visibility */
     }
 
-    p {
+    p, ul {
       margin-top: 10px;
       font-size: 1.2em;
       text-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
+    }
+
+    ul {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    ul li {
+      margin: 5px 0;
+    }
+
+    ul li a {
+      color: rgba(255, 255, 255, 0.8);
+      text-decoration: none;
+    }
+
+    ul li a:hover {
+      color: rgba(255, 255, 255, 1);
     }
 
     #audio-player {
@@ -72,10 +91,10 @@
 
   <!-- Menu -->
   <div id="menu">
-    <a href="about.html" onclick="loadContent('about')">About Me</a>
-    <a href="gallery.html" onclick="loadContent('gallery')">Gallery</a>
-    <a href="blog.html" onclick="loadContent('blog')">Blog</a>
-    <a href="projects.html" onclick="loadContent('projects')">Projects</a>
+    <a href="#" onclick="loadContent('about')">About Me</a>
+    <a href="#" onclick="loadContent('gallery')">Gallery</a>
+    <a href="#" onclick="loadContent('blog')">Blog</a>
+    <a href="#" onclick="loadContent('projects')">Projects</a>
   </div>
 
   <!-- Embedded Content -->
