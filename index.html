@@ -42,15 +42,20 @@
     #audio-player {
       display: none; /* Hide the audio player */
     }
+
+    #content {
+      padding: 20px;
+      margin-top: 50px; /* Adjust margin to avoid overlap with fixed menu */
+    }
   </style>
 </head>
 
 <body>
   <div id="menu">
-    <a href="about.html">About Me</a>
-    <a href="gallery.html">Gallery</a>
-    <a href="blog.html">Blog</a>
-    <a href="projects.html">Projects</a>
+    <a href="about.html" onclick="loadContent('about')">About Me</a>
+    <a href="gallery.html" onclick="loadContent('gallery')">Gallery</a>
+    <a href="blog.html" onclick="loadContent('blog')">Blog</a>
+    <a href="projects.html" onclick="loadContent('projects')">Projects</a>
   </div>
 
   <!-- Hidden HTML5 Audio Element -->
@@ -58,6 +63,12 @@
     <source src="/assets/msc/blue_sky_binaural_beats copy.mp3" type="audio/mpeg">
     Your browser does not support the audio element.
   </audio>
+
+  <!-- Content Placeholder -->
+  <div id="content">
+    <h1>Welcome to Chihui Chen's Website</h1>
+    <p>Select a section from the menu to view more.</p>
+  </div>
 
   <!-- Three.js will append the canvas here -->
   <script type="module">
@@ -264,6 +275,11 @@
       renderer.setSize(window.innerWidth, window.innerHeight);
     });
   </script>
+
+  <!-- Load Model and Controller -->
+  <script src="models/model.js"></script>
+  <script src="controllers/controller.js"></script>
+
 </body>
 
 </html>
