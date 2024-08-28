@@ -2,6 +2,7 @@
 
 // Function: Load content dynamically
 function loadContent(page) {
+    console.log(`Loading content for page: ${page}`);
     const contentArea = document.querySelector('#content'); // Ensure contentArea is selected correctly
     if (!contentArea) {
         console.error('Content area not found!');
