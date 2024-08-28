@@ -11,51 +11,77 @@
     html {
       margin: 0;
       height: 100%;
+      width: 100%;
       font-family: Arial, sans-serif;
-      background-color: transparent; /* Make the background color transparent */
-      overflow-x: hidden;
-      overflow-y: auto; /* Enable vertical scrolling */
+      overflow: hidden; /* Hide scrollbars to keep the focus on the 3D scene */
     }
 
     #menu {
       position: fixed;
-      top: 20px;
-      left: 20px;
-      background: rgba(0, 0, 0, 0.3); /* Set a lower opacity for the menu background */
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0, 0, 0, 0.3);
       color: white;
-      padding: 10px;
+      padding: 10px 20px;
       border-radius: 5px;
       z-index: 1000;
     }
 
     #menu a {
-      color: rgba(255, 255, 255, 0.8); /* Make the text color slightly transparent */
+      color: rgba(255, 255, 255, 0.8);
       text-decoration: none;
       margin-right: 15px;
       cursor: pointer;
     }
 
     #menu a:hover {
-      color: rgba(255, 255, 255, 1); /* Make text fully visible on hover */
-    }
-
-    #audio-player {
-      display: none; /* Hide the audio player */
+      color: rgba(255, 255, 255, 1);
     }
 
     #content {
-      padding: 20px;
-      margin-top: 50px; /* Adjust margin to avoid overlap with fixed menu */
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: white;
+      text-align: center;
+      z-index: 500;
+      pointer-events: none; /* Prevent the content from blocking interactions with the 3D scene */
+    }
+
+    h1 {
+      font-size: 3em;
+      margin: 0;
+      text-shadow: 0 0 10px rgba(0, 0, 0, 0.7); /* Add shadow for better visibility */
+    }
+
+    p {
+      margin-top: 10px;
+      font-size: 1.2em;
+      text-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
+    }
+
+    #audio-player {
+      display: none;
     }
   </style>
 </head>
 
 <body>
+
+  <!-- Menu -->
   <div id="menu">
     <a href="about.html" onclick="loadContent('about')">About Me</a>
     <a href="gallery.html" onclick="loadContent('gallery')">Gallery</a>
     <a href="blog.html" onclick="loadContent('blog')">Blog</a>
     <a href="projects.html" onclick="loadContent('projects')">Projects</a>
+  </div>
+
+  <!-- Embedded Content -->
+  <div id="content">
+    <h1>Welcome to Chihui's Cyber Homeland</h1>
+    <p>Select a section from the menu to view more.</p>
   </div>
 
   <!-- Hidden HTML5 Audio Element -->
@@ -64,33 +90,22 @@
     Your browser does not support the audio element.
   </audio>
 
-  <!-- Content Placeholder -->
-  <div id="content">
-    <h1>Welcome to Chihui Chen's Website</h1>
-    <p>Select a section from the menu to view more.</p>
-  </div>
-
-  <!-- Three.js will append the canvas here -->
+  <!-- Three.js setup -->
   <script type="module">
     import * as THREE from 'https://unpkg.com/three@0.127.0/build/three.module.js';
     import { OrbitControls } from 'https://unpkg.com/three@0.127.0/examples/jsm/controls/OrbitControls.js';
 
-    // Scene setup
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 2000);
-    const renderer = new THREE.WebGLRenderer();
+    const renderer = new THREE.WebGLRenderer({ alpha: true }); // Enable transparency
     renderer.setSize(window.innerWidth, window.innerHeight);
     document.body.appendChild(renderer.domElement);
-    
-    // Camera controls
+
     const controls = new OrbitControls(camera, renderer.domElement);
     camera.position.set(0, 0, 10);
-    
-    // Limit the zoom levels to keep the cloud within the camera's view
     controls.minDistance = 5;
     controls.maxDistance = 250;
 
-    // Restrict the panning movement to prevent the camera from moving too far
     const limitPanRange = 250;
     controls.maxPolarAngle = Math.PI / 2;
     controls.target.clamp = (v) => {
@@ -99,35 +114,20 @@
       v.z = THREE.MathUtils.clamp(v.z, -limitPanRange, limitPanRange);
     };
 
-    // Get the audio element
     const audioPlayer = document.getElementById('audio-player');
-
-    // Play audio when the user interacts with the view (zoom, rotate, or drag)
     controls.addEventListener('start', () => {
       if (audioPlayer.paused) {
         audioPlayer.play();
       }
     });
 
-    // Play audio on any touch interaction (for mobile)
     window.addEventListener('touchstart', () => {
       if (audioPlayer.paused) {
         audioPlayer.play();
       }
     }, { passive: true });
 
-    // Handle stopping the music when a menu item is clicked
-    const menuLinks = document.querySelectorAll('#menu a');
-    menuLinks.forEach(link => {
-      link.addEventListener('click', () => {
-        audioPlayer.pause();
-        audioPlayer.currentTime = 0; // Reset to the beginning
-      });
-    });
-
-    controls.update();
-    
-    // Milky Way Background
+    // Milky Way background
     const textureLoader = new THREE.TextureLoader();
     const milkyWayTexture = textureLoader.load('https://www.eso.org/public/archives/images/publicationjpg/eso0932a.jpg');
     const milkyWayGeometry = new THREE.SphereGeometry(1000, 64, 64);
@@ -138,72 +138,7 @@
     const milkyWay = new THREE.Mesh(milkyWayGeometry, milkyWayMaterial);
     scene.add(milkyWay);
 
-    // Create a realistic star texture with a halo using Canvas
-    function createStarTexture() {
-      const canvas = document.createElement('canvas');
-      canvas.width = 64;
-      canvas.height = 64;
-      const ctx = canvas.getContext('2d');
-
-      // Draw a circular gradient with a halo effect
-      const gradient = ctx.createRadialGradient(32, 32, 2, 32, 32, 32);
-      gradient.addColorStop(0, 'rgba(255, 255, 255, 1)');
-      gradient.addColorStop(0.2, 'rgba(255, 255, 255, 0.8)');
-      gradient.addColorStop(0.4, 'rgba(255, 200, 200, 0.4)');
-      gradient.addColorStop(0.6, 'rgba(150, 150, 255, 0.2)');
-      gradient.addColorStop(1, 'rgba(100, 100, 255, 0)');
-
-      ctx.beginPath();
-      ctx.arc(32, 32, 32, 0, Math.PI * 2);
-      ctx.fillStyle = gradient;
-      ctx.fill();
-
-      return new THREE.CanvasTexture(canvas);
-    }
-
-    const starTexture = createStarTexture();
-
-    // Function to get star color based on temperature type (using real RGB values)
-    function getStarColor(temperatureType) {
-      const colors = {
-        O: [155 / 255, 176 / 255, 255 / 255],
-        B: [170 / 255, 191 / 255, 255 / 255],
-        A: [202 / 255, 215 / 255, 255 / 255],
-        F: [248 / 255, 247 / 255, 255 / 255],
-        G: [255 / 255, 244 / 255, 234 / 255],
-        K: [255 / 255, 210 / 255, 161 / 255],
-        M: [255 / 255, 204 / 255, 111 / 255],
-      };
-      return colors[temperatureType];
-    }
-
-    // Function to get star size based on temperature type, with a range from 0.1 to 2.5
-    function getStarSize(temperatureType) {
-      const sizes = {
-        O: THREE.MathUtils.randFloat(1.5, 2.5),
-        B: THREE.MathUtils.randFloat(1.3, 2.2),
-        A: THREE.MathUtils.randFloat(1.0, 2.0),
-        F: THREE.MathUtils.randFloat(0.8, 1.5),
-        G: THREE.MathUtils.randFloat(0.6, 1.2),
-        K: THREE.MathUtils.randFloat(0.4, 1.0),
-        M: THREE.MathUtils.randFloat(0.1, 0.5),
-      };
-      return sizes[temperatureType];
-    }
-
-    // Weighted random selection for star types
-    function weightedRandomStarType() {
-      const randomValue = Math.random();
-      if (randomValue < 0.03) return 'O';
-      if (randomValue < 0.13) return 'B';
-      if (randomValue < 0.25) return 'A';
-      if (randomValue < 0.45) return 'F';
-      if (randomValue < 0.7) return 'G';
-      if (randomValue < 0.9) return 'K';
-      return 'M';
-    }
-
-    // Stars
+    // Stars setup
     const starsGeometry = new THREE.BufferGeometry();
     const starCount = 100000;
     const positions = new Float32Array(starCount * 3);
@@ -218,7 +153,7 @@
       const starType = weightedRandomStarType();
       const color = getStarColor(starType);
       const size = getStarSize(starType);
-      
+
       colors[i * 3] = color[0];
       colors[i * 3 + 1] = color[1];
       colors[i * 3 + 2] = color[2];
@@ -232,7 +167,7 @@
 
     const starsMaterial = new THREE.ShaderMaterial({
       uniforms: {
-        pointTexture: { value: starTexture }
+        pointTexture: { value: createStarTexture() }
       },
       vertexShader: `
         attribute float size;
@@ -259,24 +194,80 @@
 
     const stars = new THREE.Points(starsGeometry, starsMaterial);
     scene.add(stars);
-    
-    // Animation loop
+
     function animate() {
       requestAnimationFrame(animate);
       controls.update();
       renderer.render(scene, camera);
     }
     animate();
-    
-    // Handle window resize
+
     window.addEventListener('resize', () => {
       camera.aspect = window.innerWidth / window.innerHeight;
       camera.updateProjectionMatrix();
       renderer.setSize(window.innerWidth, window.innerHeight);
     });
+
+    function createStarTexture() {
+      const canvas = document.createElement('canvas');
+      canvas.width = 64;
+      canvas.height = 64;
+      const ctx = canvas.getContext('2d');
+
+      const gradient = ctx.createRadialGradient(32, 32, 2, 32, 32, 32);
+      gradient.addColorStop(0, 'rgba(255, 255, 255, 1)');
+      gradient.addColorStop(0.2, 'rgba(255, 255, 255, 0.8)');
+      gradient.addColorStop(0.4, 'rgba(255, 200, 200, 0.4)');
+      gradient.addColorStop(0.6, 'rgba(150, 150, 255, 0.2)');
+      gradient.addColorStop(1, 'rgba(100, 100, 255, 0)');
+
+      ctx.beginPath();
+      ctx.arc(32, 32, 32, 0, Math.PI * 2);
+      ctx.fillStyle = gradient;
+      ctx.fill();
+
+      return new THREE.CanvasTexture(canvas);
+    }
+
+    function getStarColor(temperatureType) {
+      const colors = {
+        O: [155 / 255, 176 / 255, 255 / 255],
+        B: [170 / 255, 191 / 255, 255 / 255],
+        A: [202 / 255, 215 / 255, 255 / 255],
+        F: [248 / 255, 247 / 255, 255 / 255],
+        G: [255 / 255, 244 / 255, 234 / 255],
+        K: [255 / 255, 210 / 255, 161 / 255],
+        M: [255 / 255, 204 / 255, 111 / 255],
+      };
+      return colors[temperatureType];
+    }
+
+    function getStarSize(temperatureType) {
+      const sizes = {
+        O: THREE.MathUtils.randFloat(1.5, 2.5),
+        B: THREE.MathUtils.randFloat(1.3, 2.2),
+        A: THREE.MathUtils.randFloat(1.0, 2.0),
+        F: THREE.MathUtils.randFloat(0.8, 1.5),
+        G: THREE.MathUtils.randFloat(0.6, 1.2),
+        K: THREE.MathUtils.randFloat(0.4, 1.0),
+        M: THREE.MathUtils.randFloat(0.1, 0.5),
+      };
+      return sizes[temperatureType];
+    }
+
+    function weightedRandomStarType() {
+      const randomValue = Math.random();
+      if (randomValue < 0.03) return 'O';
+      if (randomValue < 0.13) return 'B';
+      if (randomValue < 0.25) return 'A';
+      if (randomValue < 0.45) return 'F';
+      if (randomValue < 0.7) return 'G';
+      if (randomValue < 0.9) return 'K';
+      return 'M';
+    }
+
   </script>
 
-  <!-- Load Model and Controller -->
   <script src="models/model.js"></script>
   <script src="controllers/controller.js"></script>
 
