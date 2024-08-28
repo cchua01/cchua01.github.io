@@ -2,12 +2,20 @@
 
 // Function: Load content dynamically
 function loadContent(page) {
-    const contentArea = document.querySelector('#content'); // Make sure to define contentArea
+    const contentArea = document.querySelector('#content'); // Ensure contentArea is selected correctly
+    if (!contentArea) {
+        console.error('Content area not found!');
+        return;
+    }
 
     switch(page) {
         case 'about':
             // Load "About Me" content
             const aboutMe = getAboutMeData();
+            if (!aboutMe) {
+                console.error('About Me data not found!');
+                return;
+            }
             contentArea.innerHTML = `
                 <h2>${aboutMe.avatar}</h2>
                 <p><strong>Introduction:</strong> ${aboutMe.introduction}</p>
@@ -71,7 +79,7 @@ function loadContent(page) {
 document.querySelectorAll('#menu a').forEach(link => {
     link.addEventListener('click', event => {
         event.preventDefault();
-        const page = event.target.getAttribute('href').replace('.html', '');
+        const page = event.target.getAttribute('href').replace('#', ''); // Correctly parse the href attribute
         loadContent(page);
     });
 });
