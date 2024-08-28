@@ -41,15 +41,15 @@ const projects = [
 
 // Data for the "About Me" section
 const aboutMeData = {
-    avatar: "Cyberpunk Taoist avatar or aurora selfie",
+    avatar: "assets/img/Avatar.JPG",
     introduction: "Hi, I'm Chihui Chen, a current student (2nd term out of 6 terms) at University of New South Wales. I'm doing Master of Information Technology, specialising in Artificial Intelligence.",
     education: "I did Engineering degree in Mineral Processing for my undergraduate at Fuzhou University.",
     motivation: "Why I transferred my major from Chemistry related to Computer Science related.",
     hobbies: ["Photography", "Math", "Music"],
     contact: [
-        { name: "Instagram", link: "https://www.instagram.com/yourusername" },
-        { name: "LinkedIn", link: "https://www.linkedin.com/in/yourusername" },
-        { name: "GitHub", link: "https://github.com/yourusername" },
+        { name: "Instagram", link: "https://www.instagram.com/chihuahuachiefchen" },
+        { name: "LinkedIn", link: "https://www.linkedin.com/in/Chihui Chen" },
+        { name: "GitHub", link: "https://github.com/cchua01" },
         { name: "Email", link: "mailto:chihui.chen@student.unsw.edu.au" }
     ],
     acknowledgement: "Binaural beats, Milky Way."

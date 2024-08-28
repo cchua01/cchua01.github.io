@@ -18,16 +18,54 @@ function loadContent(page) {
                 return;
             }
             contentArea.innerHTML = `
-                <h2>${aboutMe.avatar}</h2>
-                <p><strong>Introduction:</strong> ${aboutMe.introduction}</p>
-                <p><strong>Education:</strong> ${aboutMe.education}</p>
-                <p><strong>Motivation:</strong> ${aboutMe.motivation}</p>
-                <p><strong>Hobbies:</strong> ${aboutMe.hobbies.join(', ')}</p>
-                <p><strong>Contact Me:</strong></p>
-                <ul>
-                    ${aboutMe.contact.map(contact => `<li><a href="${contact.link}" target="_blank">${contact.name}</a></li>`).join('')}
-                </ul>
-                <p><strong>Acknowledgement:</strong> ${aboutMe.acknowledgement}</p>
+                <div class="about-container">
+                    <!-- Avatar Section -->
+                    <div class="avatar-section">
+                        <img src="path_to_your_avatar_image.jpg" alt="Avatar" class="avatar-image">
+                    </div>
+                    
+                    <!-- Introduction Section -->
+                    <div class="section">
+                        <h2>Introduction</h2>
+                        <p>${aboutMe.introduction}</p>
+                    </div>
+                    
+                    <!-- Education Section -->
+                    <div class="section">
+                        <h2>Education</h2>
+                        <p>${aboutMe.education}</p>
+                    </div>
+                    
+                    <!-- Motivation Section -->
+                    <div class="section">
+                        <h2>Motivation</h2>
+                        <p>${aboutMe.motivation}</p>
+                    </div>
+                    
+                    <!-- Hobbies Section -->
+                    <div class="section">
+                        <h2>Hobbies</h2>
+                        <p>${aboutMe.hobbies.join(', ')}</p>
+                    </div>
+                    
+                    <!-- Contact Section -->
+                    <div class="section">
+                        <h2>Contact Me</h2>
+                        <div class="social-icons">
+                            ${aboutMe.contact.map(contact => `
+                                <a href="${contact.link}" target="_blank" class="social-link">
+                                    <i class="fab fa-${contact.name.toLowerCase()}"></i>
+                                </a>
+                            `).join('')}
+                        </div>
+                    </div>
+                    
+                    <!-- Acknowledgement Section -->
+                    <div class="section">
+                        <h2>Acknowledgement</h2>
+                        <p>${aboutMe.acknowledgement}</p>
+                    </div>
+                </div>
             `;
             break;
 
