@@ -48,7 +48,7 @@ const aboutMeData = {
     hobbies: ["Photography", "Math", "Music"],
     contact: [
         { name: "Instagram", link: "https://www.instagram.com/chihuahuachiefchen" },
-        { name: "LinkedIn", link: "https://www.linkedin.com/in/Chihui Chen" },
+        { name: "LinkedIn", link: "https://www.linkedin.com/in/chihui-chen-338710270" },
         { name: "GitHub", link: "https://github.com/cchua01" },
         { name: "Email", link: "mailto:chihui.chen@student.unsw.edu.au" }
     ],

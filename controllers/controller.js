@@ -54,12 +54,9 @@ function loadContent(page) {
                         <div class="social-icons">
                             ${aboutMe.contact.map(contact => `
                                 <a href="${contact.link}" target="_blank" class="social-link">
-                                    <i class="fab fa-${contact.name.toLowerCase()}"></i>
+                                    <i class="${contact.name.toLowerCase() === 'email' ? 'fas fa-envelope' : 'fab fa-' + contact.name.toLowerCase()}"></i>
                                 </a>
                             `).join('')}
-                            <a href="mailto:chihui.chen@student.unsw.edu.au" class="social-link">
-                                <i class="fas fa-envelope"></i>
-                            </a>
                         </div>
                     </div>
                     
