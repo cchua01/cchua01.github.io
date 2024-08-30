@@ -153,15 +153,18 @@
     }
 
     .gallery-item {
-        width: 100%;
         position: relative;
+        width: 100%;
+        padding-top: 75%; /* Adjust this percentage to change the aspect ratio if needed */
     }
 
     .gallery-photo {
+        position: absolute;
+        top: 0;
+        left: 0;
         width: 100%;
-        height: auto;
-        max-height: 200px; /* Limit the height of images to ensure they fit in the window */
-        object-fit: cover; /* Ensure the image covers the area while keeping aspect ratio */
+        height: 100%;
+        object-fit: contain; /* Maintain the original aspect ratio */
         border-radius: 10px;
         transition: transform 0.3s ease;
     }
