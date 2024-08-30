@@ -39,7 +39,7 @@ function loadContent(page) {
                     <!-- Motivation Section -->
                     <div class="section">
                         <h2>Motivation</h2>
-                        <p>${aboutMe.motivation}</p>
+                        <p>${aboutMe.motivation.replace(/\n/g, '<br><br>')}</p>
                     </div>
                     
                     <!-- Hobbies Section -->
