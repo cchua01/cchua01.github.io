@@ -27,8 +27,8 @@ const galleryPhotos = [
     //{ src: "assets/img/Temple.jpg", caption: "Temple" },
     //{ src: "assets/img/People.jpg", caption: "People" },
     //{ src: "assets/img/City_Light.jpg", caption: "City Light" },
-    { src: "https://drive.google.com/file/d/1l3Gx7lcU10yUt6dAVvSjuEXCOI9pwSDv/view?usp=sharing", caption: "Campus" },
-    { src: "https://drive.google.com/file/d/1G0UZPdJzs5CQjz_uqazwGXpacHJTXjV1/view?usp=sharing", caption: "Bird" },
+    { src: "https://drive.google.com/uc?id=1l3Gx7lcU10yUt6dAVvSjuEXCOI9pwSDv", caption: "Campus" },
+    { src: "https://drive.google.com/uc?id=1G0UZPdJzs5CQjz_uqazwGXpacHJTXjV1", caption: "Bird" },
     //{ src: "assets/img/The_Milky_Way_and_Aurora_and_Me.jpg", caption: "The Milky Way, Aurora and Me" },
     // Add more photos here...
 ];
