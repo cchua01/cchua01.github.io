@@ -85,15 +85,14 @@ function loadContent(page) {
         case 'gallery':
             // Load gallery content
             const photos = getGalleryPhotos();
-            contentArea.innerHTML = '<h1>Gallery</h1><div class="gallery-grid">';
+            contentArea.innerHTML = '<h1>Gallery</h1>';
             photos.forEach(photo => {
                 contentArea.innerHTML += `
-                    <div class="gallery-item">
-                        <img src="${photo.src}" alt="${photo.caption}" class="gallery-photo">
+                    <div class="gallery-photo">
+                        <img src="${photo.src}" alt="${photo.caption}">
                         <p>${photo.caption}</p>
                     </div>`;
             });
-            contentArea.innerHTML += '</div>';
             break;
 
         case 'projects':
