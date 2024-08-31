@@ -9,9 +9,6 @@ function loadContent(page) {
         return;
     }
 
-    // Show loading spinner
-    loadingSpinner.style.display = 'block';
-
     switch(page) {
         case 'about':
             // Load "About Me" content
@@ -87,20 +84,17 @@ function loadContent(page) {
 
         case 'gallery':
             // Load gallery content
-            setTimeout(() => {
-                const photos = getGalleryPhotos();
-                contentArea.innerHTML = '<h1>Gallery</h1><div class="gallery-grid">';
-                photos.forEach(photo => {
-                    contentArea.innerHTML += `
-                        <div class="gallery-item">
-                            <img src="${photo.src}" alt="${photo.caption}" class="gallery-photo" onload="hideLoadingSpinner()">
-                            <p>${photo.caption}</p>
-                        </div>`;
-                });
-                contentArea.innerHTML += '</div>';
-                loadingSpinner.style.display = 'none';
-            }, 1000); // Simulated delay for loading
-            break;    
+            const photos = getGalleryPhotos();
+            contentArea.innerHTML = '<h1>Gallery</h1><div class="gallery-grid">';
+            photos.forEach(photo => {
+                contentArea.innerHTML += `
+                    <div class="gallery-item">
+                        <img src="${photo.src}" alt="${photo.caption}" class="gallery-photo">
+                        <p>${photo.caption}</p>
+                    </div>`;
+            });
+            contentArea.innerHTML += '</div>';
+            break;
 
         case 'projects':
             // Load projects content
