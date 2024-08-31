@@ -15,21 +15,21 @@ const blogPosts = [
 
 // Data for the gallery photos
 const galleryPhotos = [
-    { src: "assets/img/Magellanic Cloud.jpg", caption: "Magellanic Clouds" },
-    //{ src: "assets/img/The_Milky_Way_and_Fireflies.jpg", caption: "The Milky Way and Fireflies" },
-    //{ src: "assets/img/The_Milky_Way_and_Shooting_Stars.jpg", caption: "The Milky Way and Shooting Stars" },
-    //{ src: "assets/img/The_Milky_Way_South_Crux.jpg", caption: "The Milky Way and the South Crux" },
-    { src: "assets/img/Lotus_Leaves_and_Bird.jpg", caption: "Lotus Leaves and a Bird" },
-    //{ src: "assets/img/Lotus_and_Mountain.jpg", caption: "Lotus and Mountain" },
-    //{ src: "assets/img/On_the_Beach.jpg", caption: "On the Beach" },
-    //{ src: "assets/img/On_the_Road.jpg", caption: "On the Road" },
-    //{ src: "assets/img/La_Perouse.jpg", caption: "La Perouse" },
-    //{ src: "assets/img/Temple.jpg", caption: "Temple" },
-    //{ src: "assets/img/People.jpg", caption: "People" },
-    //{ src: "assets/img/City_Light.jpg", caption: "City Light" },
+    { src: "https://formyportfolio.s3.ap-southeast-2.amazonaws.com/Magellanic_Clouds.jpg", caption: "Magellanic Clouds" },
+    { src: "https://formyportfolio.s3.ap-southeast-2.amazonaws.com/The_Milky_Way_and_Fireflies.jpg", caption: "The Milky Way and Fireflies" },
+    { src: "https://formyportfolio.s3.ap-southeast-2.amazonaws.com/The_Milky_Way_and_Shooting_Stars.jpg", caption: "The Milky Way and Shooting Stars" },
+    { src: "https://formyportfolio.s3.ap-southeast-2.amazonaws.com/The_Milky_Way_South_Crux.jpg", caption: "The Milky Way and the South Crux" },
+    { src: "https://formyportfolio.s3.ap-southeast-2.amazonaws.com/Lotus_Leaves_and_Bird.jpg", caption: "Lotus Leaves and a Bird" },
+    { src: "https://formyportfolio.s3.ap-southeast-2.amazonaws.com/Lotus_and_Mountain.jpg", caption: "Lotus and Mountain" },
+    { src: "https://formyportfolio.s3.ap-southeast-2.amazonaws.com/On_the_Beach.jpg", caption: "On the Beach" },
+    { src: "https://formyportfolio.s3.ap-southeast-2.amazonaws.com/On_the_Road.jpg", caption: "On the Road" },
+    { src: "https://formyportfolio.s3.ap-southeast-2.amazonaws.com/La_Perouse.jpg", caption: "La Perouse" },
+    { src: "https://formyportfolio.s3.ap-southeast-2.amazonaws.com/Temple.jpg", caption: "Temple" },
+    { src: "https://formyportfolio.s3.ap-southeast-2.amazonaws.com/People.jpg", caption: "People" },
+    { src: "https://formyportfolio.s3.ap-southeast-2.amazonaws.com/City_Light.jpg", caption: "City Light" },
     { src: "https://formyportfolio.s3.ap-southeast-2.amazonaws.com/Campus.jpg", caption: "Campus" },
     { src: "https://formyportfolio.s3.ap-southeast-2.amazonaws.com/Bird.jpg", caption: "Bird" },
-    //{ src: "assets/img/The_Milky_Way_and_Aurora_and_Me.jpg", caption: "The Milky Way, Aurora and Me" },
+    { src: "https://formyportfolio.s3.ap-southeast-2.amazonaws.com/The_Milky_Way_and_Aurora_and_Me.jpg", caption: "The Milky Way, Aurora and Me" },
     // Add more photos here...
 ];
 
