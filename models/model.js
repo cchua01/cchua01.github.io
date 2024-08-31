@@ -18,7 +18,7 @@ const galleryPhotos = [
     { src: "https://formyportfolio.s3.ap-southeast-2.amazonaws.com/Magellanic_Clouds.jpg", caption: "Magellanic Clouds" },
     { src: "https://formyportfolio.s3.ap-southeast-2.amazonaws.com/The_Milky_Way_and_Fireflies.jpg", caption: "The Milky Way and Fireflies" },
     { src: "https://formyportfolio.s3.ap-southeast-2.amazonaws.com/The_Milky_Way_and_Shooting_Stars.jpg", caption: "The Milky Way and Shooting Stars" },
-    { src: "https://formyportfolio.s3.ap-southeast-2.amazonaws.com/The_Milky_Way_South_Crux.jpg", caption: "The Milky Way and the South Crux" },
+    { src: "https://formyportfolio.s3.ap-southeast-2.amazonaws.com/The_Milky_Way_South_Crux-2.jpg", caption: "The Milky Way and the South Crux" },
     { src: "https://formyportfolio.s3.ap-southeast-2.amazonaws.com/Lotus_Leaves_and_Bird.jpg", caption: "Lotus Leaves and a Bird" },
     { src: "https://formyportfolio.s3.ap-southeast-2.amazonaws.com/Lotus_and_Mountain.jpg", caption: "Lotus and Mountain" },
     { src: "https://formyportfolio.s3.ap-southeast-2.amazonaws.com/On_the_Beach.jpg", caption: "On the Beach" },
