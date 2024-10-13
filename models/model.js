@@ -3,13 +3,18 @@
 // Data for the blog posts
 const blogPosts = [
     {
-        title: "First Blog Post",
-        content: "This is the content of the first blog post."
+        title: "Machine Learning with Functional Analysis Perspectives",
+        content: `
+        In the middle of this year, when I dove into three AI-related subjects, the more I learned, the stronger I believed that life is just like a search game—we first learn new things, fed by an intensive flow of information, knowledge, and life experiences. The past shapes who you are now and who you might be in the future. High-quality experiences are like high-quality training sets—just as poor-quality datasets, such as imbalanced datasets, lead to poor performance, higher bias, and variance. Sometimes, the model may never achieve convergence, fluctuating as if trapped in a cycle. Some people are like that, searching for something but never finding it, repeating the same mistakes over and over. Hence, we definitely need to broaden our experiences, or in other words, have a more balanced dataset, and apply Early Stopping to avoid useless exploration, preventing a "Greek tragedy." As humans, what other analogies can we draw from machines, or ultimately, from mathematics?
+
+        Another reason I decided to write this note is that when I was in class, the content of these subjects reminded me of a very obscure image from functional analysis, like a butterfly. After reading the paper *Active Contour Without Edges*, it enhanced my ambition to figure out the foundations of higher-level machine learning. Someone once told me that algorithms are not magic, but I do consider the algorithm in *Active Contour Without Edges* to be magical, as it relies solely on geometrical invariants. So, here we are.
+        `,
+        link: "https://formyportfolio.s3.ap-southeast-2.amazonaws.com/blog_general_framework_of_ml.pdf" 
     },
-    {
-        title: "Second Blog Post",
-        content: "This is the content of the second blog post."
-    },
+    //{
+    //   title: "Second Blog Post",
+    //   content: "This is the content of the second blog post."
+    //},
     // Add more blog posts here...
 ];
 

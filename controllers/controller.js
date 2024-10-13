@@ -77,7 +77,8 @@ function loadContent(page) {
                 contentArea.innerHTML += `
                     <div class="blog-post">
                         <h2>${post.title}</h2>
-                        <p>${post.content}</p>
+                        <p>${post.content.replace(/\n/g, '<br><br>')}</p>
+                        <p><a href="${post.link}" target="_blank">Read more (PDF)</a></p> <!-- Added the link to the Amazon file -->
                     </div>`;
             });
             break;
