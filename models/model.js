@@ -11,11 +11,17 @@ const blogPosts = [
         `,
         link: "https://formyportfolio.s3.ap-southeast-2.amazonaws.com/blog_general_framework_of_ml.pdf" 
     },
-    //{
-    //   title: "Second Blog Post",
-    //   content: "This is the content of the second blog post."
-    //},
-    // Add more blog posts here...
+    {
+        title: "Notes on Game Theory for COMP4418",
+        content: `
+        During COMP4418, I delved into core concepts like Nash equilibrium, zero-sum games, and cooperative versus non-cooperative games.
+
+        A memorable insight was understanding how Nash equilibrium is reached in multi-agent systems and its implications in designing algorithms for AI agents. The classic *Prisoner's Dilemma* highlights the tension between individual rationality and collective welfare. This is further expanded in dynamic games where strategies evolve over time.
+
+        Exploring auctions, voting systems, and bargaining models helped illustrate how game theory informs mechanism design. In AI, concepts from game theory are foundational for multi-agent coordination, adversarial training, and reinforcement learning. As I progress, I aim to dive deeper into its computational aspects and connections to algorithmic game theory.
+        `,
+        link: "https://formyportfolio.s3.ap-southeast-2.amazonaws.com/Notes_on_game_theory.pdf"
+    },
 ];
 
 // Data for the gallery photos

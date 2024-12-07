@@ -70,18 +70,10 @@ function loadContent(page) {
             break;
 
         case 'blog':
-            // Load blog content with enhanced SEO for machine learning and functional analysis
+            // Load blog content dynamically
             const blogs = getBlogPosts();
-            contentArea.innerHTML = '<h1>Blog: Machine Learning and Functional Analysis</h1>';
+            contentArea.innerHTML = '<h1>Blog</h1>';
             blogs.forEach(post => {
-                const summarizedContent = `
-                    This blog explores how to define appropriate metrics to understand the structure of spaces, especially in relation to machine learning and the "Curse of Dimensionality." Invariants—features that remain stable across spaces—are key to identifying new properties. We discuss types of spaces with approximation properties, such as metric, Banach, and Hilbert spaces, and how to represent elements within these spaces using bases like orthonormal and Schauder. 
-                    
-                    In machine learning, methods like Structural Risk Minimization (SRM) and Empirical Risk Minimization (ERM) help us find the best approximation with controllable error, while regularization balances accuracy with computational complexity. We also examine how Functional Analysis aids in constructing spaces with approximation properties and representation theorems. 
-                    
-                    Finally, drawing from Vapnik's Statistical Learning Theory, we highlight four key levels of understanding: consistency, convergence rates, control of convergence, and algorithms like SVMs and neural networks.
-                `;
-                
                 contentArea.innerHTML += `
                     <article class="blog-post">
                         <header>
@@ -96,7 +88,7 @@ function loadContent(page) {
                             "@context": "https://schema.org",
                             "@type": "BlogPosting",
                             "headline": "${post.title}",
-                            "articleBody": "${summarizedContent.replace(/"/g, '\\"')}",
+                            "articleBody": "${post.content.replace(/"/g, '\\"').replace(/\n/g, ' ')}",
                             "url": "${window.location.href}",
                             "author": {
                                 "@type": "Person",
@@ -110,7 +102,7 @@ function loadContent(page) {
                                     "url": "https://cchua01.github.io/assets/img/Avatar.JPG"
                                 }
                             },
-                            "datePublished": "2024-10-14"
+                            "datePublished": "2024-10-14" // Update with your actual date
                         }
                         </script>
                     </article>`;
