@@ -59,7 +59,7 @@ const projects = [
 
 // Data for the "About Me" section
 const aboutMeData = {
-    avatar: "assets/img/Avatar.JPG",
+    avatar: "assets/img/Prophecy.JPG",
     introduction: "Hi, I'm Chihui Chen, a current student (2nd term out of 6 terms) at University of New South Wales. I'm doing Master of Information Technology, specialising in Artificial Intelligence.",
     education: "I did Engineering degree in Mineral Processing for my undergraduate at Fuzhou University.",
     motivation: `
